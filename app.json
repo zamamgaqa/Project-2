@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Smart Clinic - Doctor",
+    "slug": "smart-clinic-doctor",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#F7F6FC"
+    },
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F7F6FC"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
