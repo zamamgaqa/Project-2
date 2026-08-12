@@ -6,7 +6,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 
 import { colors } from './src/theme/colors';
+import WelcomeScreen from './src/screens/WelcomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
 import AppointmentsScreen from './src/screens/AppointmentsScreen';
 import PatientListScreen from './src/screens/PatientListScreen';
@@ -50,10 +52,12 @@ export default function App() {
     <NavigationContainer>
       <StatusBar style="dark" />
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="Welcome"
         screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bgApp } }}
       >
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="MainTabs" component={MainTabs} />
         <Stack.Screen name="PatientHistory" component={PatientMedicalHistoryScreen} />
         <Stack.Screen name="AppointmentDetails" component={AppointmentDetailsScreen} />
