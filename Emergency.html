@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Clinic - Emergency Cases</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3efff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* PHONE */
+
+        .phone {
+            width: 390px;
+            height: 820px;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #222;
+            box-shadow: 0 10px 40px rgba(70, 30, 130, 0.25);
+        }
+
+        /* STATUS BAR */
+
+        .status-bar {
+            height: 35px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 20px;
+
+            font-size: 13px;
+            color: #222;
+        }
+
+        /* HEADER */
+
+        .header {
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 18px;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .back {
+            font-size: 28px;
+            color: #5b21b6;
+
+            cursor: pointer;
+
+            margin-right: 12px;
+        }
+
+        .header h2 {
+            color: #5521a8;
+            font-size: 20px;
+        }
+
+        /* CONTENT */
+
+        .content {
+            height: 650px;
+
+            overflow-y: auto;
+
+            padding-bottom: 90px;
+        }
+
+        /* EMERGENCY BANNER */
+
+        .emergency-banner {
+            margin: 15px;
+
+            padding: 15px;
+
+            border-radius: 15px;
+
+            background: #fff0f0;
+
+            border: 1px solid #ffd0d0;
+
+            display: flex;
+
+            align-items: center;
+        }
+
+        .emergency-icon {
+            width: 45px;
+            height: 45px;
+
+            border-radius: 50%;
+
+            background: #e53935;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+
+            margin-right: 12px;
+        }
+
+        .emergency-banner h3 {
+            font-size: 13px;
+
+            color: #c62828;
+        }
+
+        .emergency-banner p {
+            font-size: 10px;
+
+            color: #777;
+
+            margin-top: 4px;
+
+            line-height: 1.4;
+        }
+
+        /* SECTION */
+
+        .section-title {
+            padding: 5px 18px 10px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .section-title h3 {
+            color: #333;
+
+            font-size: 15px;
+        }
+
+        .section-title span {
+            color: #5b21b6;
+
+            font-size: 10px;
+        }
+
+        /* FILTERS */
+
+        .filters {
+            display: flex;
+
+            gap: 8px;
+
+            padding: 0 15px 13px;
+        }
+
+        .filter {
+            border: 1px solid #ddd;
+
+            background: white;
+
+            padding: 7px 13px;
+
+            border-radius: 18px;
+
+            font-size: 10px;
+
+            cursor: pointer;
+        }
+
+        .filter.active {
+            background: #5b21b6;
+
+            color: white;
+
+            border-color: #5b21b6;
+        }
+
+        /* EMERGENCY CASE */
+
+        .case {
+            margin: 0 15px 12px;
+
+            padding: 13px;
+
+            border-radius: 15px;
+
+            background: white;
+
+            border: 1px solid #eee;
+
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+
+            cursor: pointer;
+        }
+
+        .case:hover {
+            background: #faf8ff;
+        }
+
+        .case-top {
+            display: flex;
+
+            align-items: center;
+        }
+
+        .patient-image {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            margin-right: 10px;
+        }
+
+        .patient-info {
+            flex: 1;
+        }
+
+        .patient-info h4 {
+            font-size: 13px;
+
+            color: #333;
+        }
+
+        .patient-info p {
+            font-size: 9px;
+
+            color: #999;
+
+            margin-top: 4px;
+        }
+
+        /* PRIORITY */
+
+        .priority {
+            padding: 5px 8px;
+
+            border-radius: 10px;
+
+            font-size: 8px;
+
+            font-weight: bold;
+        }
+
+        .critical {
+            background: #ffe1e1;
+
+            color: #d32f2f;
+        }
+
+        .high {
+            background: #fff0d5;
+
+            color: #d47700;
+        }
+
+        .medium {
+            background: #eee7ff;
+
+            color: #5b21b6;
+        }
+
+        /* CASE DETAILS */
+
+        .case-details {
+            margin-top: 12px;
+
+            padding-top: 10px;
+
+            border-top: 1px solid #eee;
+
+            display: flex;
+
+            justify-content: space-between;
+        }
+
+        .detail {
+            font-size: 9px;
+
+            color: #777;
+        }
+
+        .detail strong {
+            display: block;
+
+            font-size: 10px;
+
+            color: #444;
+
+            margin-top: 3px;
+        }
+
+        /* ACTIONS */
+
+        .actions {
+            display: flex;
+
+            gap: 7px;
+
+            margin-top: 11px;
+        }
+
+        .action {
+            flex: 1;
+
+            padding: 9px;
+
+            border-radius: 9px;
+
+            border: none;
+
+            font-size: 9px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+        .view {
+            background: #eee7ff;
+
+            color: #5b21b6;
+        }
+
+        .call {
+            background: #e8f7ed;
+
+            color: #258345;
+        }
+
+        .resolve {
+            background: #5b21b6;
+
+            color: white;
+        }
+
+        /* EMPTY */
+
+        .empty {
+            display: none;
+
+            text-align: center;
+
+            padding: 40px 20px;
+
+            color: #999;
+
+            font-size: 12px;
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom-nav {
+            position: absolute;
+
+            bottom: 0;
+            left: 0;
+
+            width: 100%;
+
+            height: 70px;
+
+            background: white;
+
+            border-top: 1px solid #eee;
+
+            display: flex;
+
+            justify-content: space-around;
+
+            align-items: center;
+        }
+
+        .nav-item {
+            text-align: center;
+
+            color: #777;
+
+            font-size: 10px;
+
+            cursor: pointer;
+        }
+
+        .nav-item span {
+            display: block;
+
+            font-size: 20px;
+
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: #5b21b6;
+
+            font-weight: bold;
+        }
+
+        /* POPUP */
+
+        .popup {
+            display: none;
+
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            width: 87%;
+
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+            z-index: 20;
+        }
+
+        .popup h3 {
+            color: #5b21b6;
+
+            font-size: 17px;
+
+            margin-bottom: 10px;
+        }
+
+        .popup p {
+            font-size: 11px;
+
+            color: #777;
+
+            line-height: 1.5;
+
+            margin-bottom: 15px;
+        }
+
+        .popup button {
+            width: 100%;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #5b21b6;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+        .popup .close {
+            margin-top: 8px;
+
+            background: #eee;
+
+            color: #555;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="phone">
+
+
+    <!-- STATUS BAR -->
+
+    <div class="status-bar">
+
+        <span>9:41</span>
+
+        <span>● ● 🔋</span>
+
+    </div>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div
+            class="back"
+            onclick="goBack()">
+
+            ‹
+
+        </div>
+
+        <h2>
+            Emergency Cases
+        </h2>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- EMERGENCY BANNER -->
+
+        <div class="emergency-banner">
+
+            <div class="emergency-icon">
+                ⚠
+            </div>
+
+            <div>
+
+                <h3>
+                    Emergency Monitoring
+                </h3>
+
+                <p>
+                    Urgent patient cases requiring
+                    immediate medical attention.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- TITLE -->
+
+        <div class="section-title">
+
+            <h3>
+                Active Emergencies
+            </h3>
+
+            <span id="caseCount">
+                3 Active
+            </span>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="filters">
+
+            <button
+                class="filter active"
+                onclick="filterCases('all', this)">
+
+                All
+
+            </button>
+
+            <button
+                class="filter"
+                onclick="filterCases('critical', this)">
+
+                Critical
+
+            </button>
+
+            <button
+                class="filter"
+                onclick="filterCases('high', this)">
+
+                High
+
+            </button>
+
+            <button
+                class="filter"
+                onclick="filterCases('medium', this)">
+
+                Medium
+
+            </button>
+
+        </div>
+
+
+        <!-- CASE 1 -->
+
+        <div
+            class="case"
+            data-priority="critical">
+
+            <div class="case-top">
+
+                <img
+                    class="patient-image"
+                    src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200"
+                    alt="Patient">
+
+                <div class="patient-info">
+
+                    <h4>
+                        Nomvula Dlamini
+                    </h4>
+
+                    <p>
+                        Patient ID: SC-1048
+                    </p>
+
+                </div>
+
+                <span class="priority critical">
+                    CRITICAL
+                </span>
+
+            </div>
+
+
+            <div class="case-details">
+
+                <div class="detail">
+
+                    Symptoms
+
+                    <strong>
+                        Chest Pain
+                    </strong>
+
+                </div>
+
+                <div class="detail">
+
+                    Reported
+
+                    <strong>
+                        09:35 AM
+                    </strong>
+
+                </div>
+
+                <div class="detail">
+
+                    Status
+
+                    <strong>
+                        Waiting
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions">
+
+                <button
+                    class="action view"
+                    onclick="viewCase('Nomvula Dlamini')">
+
+                    View Case
+
+                </button>
+
+                <button
+                    class="action call"
+                    onclick="callPatient('Nomvula Dlamini')">
+
+                    📞 Call
+
+                </button>
+
+                <button
+                    class="action resolve"
+                    onclick="resolveCase(this)">
+
+                    Resolve
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CASE 2 -->
+
+        <div
+            class="case"
+            data-priority="high">
+
+            <div class="case-top">
+
+                <img
+                    class="patient-image"
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200"
+                    alt="Patient">
+
+                <div class="patient-info">
+
+                    <h4>
+                        Thabo Mokoena
+                    </h4>
+
+                    <p>
+                        Patient ID: SC-1092
+                    </p>
+
+                </div>
+
+                <span class="priority high">
+                    HIGH
+                </span>
+
+            </div>
+
+
+            <div class="case-details">
+
+                <div class="detail">
+
+                    Symptoms
+
+                    <strong>
+                        Difficulty Breathing
+                    </strong>
+
+                </div>
+
+                <div class="detail">
+
+                    Reported
+
+                    <strong>
+                        09:28 AM
+                    </strong>
+
+                </div>
+
+                <div class="detail">
+
+                    Status
+
+                    <strong>
+                        Waiting
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions">
+
+                <button
+                    class="action view"
+                    onclick="viewCase('Thabo Mokoena')">
+
+                    View Case
+
+                </button>
+
+                <button
+                    class="action call"
+                    onclick="callPatient('Thabo Mokoena')">
+
+                    📞 Call
+
+                </button>
+
+                <button
+                    class="action resolve"
+                    onclick="resolveCase(this)">
+
+                    Resolve
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CASE 3 -->
+
+        <div
+            class="case"
+            data-priority="medium">
+
+            <div class="case-top">
+
+                <img
+                    class="patient-image"
+                    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200"
+                    alt="Patient">
+
+                <div class="patient-info">
+
+                    <h4>
+                        Sarah Nkosi
+                    </h4>
+
+                    <p>
+                        Patient ID: SC-1134
+                    </p>
+
+                </div>
+
+                <span class="priority medium">
+                    MEDIUM
+                </span>
+
+            </div>
+
+
+            <div class="case-details">
+
+                <div class="detail">
+
+                    Symptoms
+
+                    <strong>
+                        Severe Fever
+                    </strong>
+
+                </div>
+
+                <div class="detail">
+
+                    Reported
+
+                    <strong>
+                        09:15 AM
+                    </strong>
+
+                </div>
+
+                <div class="detail">
+
+                    Status
+
+                    <strong>
+                        Waiting
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions">
+
+                <button
+                    class="action view"
+                    onclick="viewCase('Sarah Nkosi')">
+
+                    View Case
+
+                </button>
+
+                <button
+                    class="action call"
+                    onclick="callPatient('Sarah Nkosi')">
+
+                    📞 Call
+
+                </button>
+
+                <button
+                    class="action resolve"
+                    onclick="resolveCase(this)">
+
+                    Resolve
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- EMPTY -->
+
+        <div
+            class="empty"
+            id="empty">
+
+            No emergency cases found.
+
+        </div>
+
+
+    </div>
+
+
+    <!-- BOTTOM NAV -->
+
+    <div class="bottom-nav">
+
+
+        <div
+            class="nav-item"
+            onclick="goHome()">
+
+            <span>
+                🏠
+            </span>
+
+            Home
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goAppointments()">
+
+            <span>
+                📅
+            </span>
+
+            Appointments
+
+        </div>
+
+
+        <div
+            class="nav-item active">
+
+            <span>
+                🚨
+            </span>
+
+            Emergency
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goProfile()">
+
+            <span>
+                👤
+            </span>
+
+            Profile
+
+        </div>
+
+
+    </div>
+
+
+    <!-- POPUP -->
+
+    <div
+        class="popup"
+        id="popup">
+
+        <h3 id="popupTitle">
+            Emergency Case
+        </h3>
+
+        <p id="popupMessage">
+            Case information.
+        </p>
+
+        <button
+            onclick="closePopup()">
+
+            Close
+
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+    /* FILTER CASES */
+
+    function filterCases(priority, button) {
+
+
+        const filters =
+            document.querySelectorAll(".filter");
+
+
+        filters.forEach(function(filter) {
+
+            filter.classList.remove("active");
+
+        });
+
+
+        button.classList.add("active");
+
+
+        const cases =
+            document.querySelectorAll(".case");
+
+
+        let visible = 0;
+
+
+        cases.forEach(function(caseItem) {
+
+
+            if (
+                priority === "all" ||
+                caseItem.dataset.priority === priority
+            ) {
+
+                caseItem.style.display =
+                    "block";
+
+                visible++;
+
+            } else {
+
+                caseItem.style.display =
+                    "none";
+
+            }
+
+        });
+
+
+        document.getElementById(
+            "empty"
+        ).style.display =
+            visible === 0 ? "block" : "none";
+
+    }
+
+
+    /* VIEW CASE */
+
+    function viewCase(patient) {
+
+
+        document.getElementById(
+            "popupTitle"
+        ).innerText =
+            patient;
+
+
+        document.getElementById(
+            "popupMessage"
+        ).innerText =
+            "Emergency case details for " +
+            patient +
+            ". Review the patient's symptoms, medical history and current emergency status before taking appropriate action.";
+
+
+        document.getElementById(
+            "popup"
+        ).style.display =
+            "block";
+
+    }
+
+
+    /* CALL PATIENT */
+
+    function callPatient(patient) {
+
+
+        document.getElementById(
+            "popupTitle"
+        ).innerText =
+            "Calling Patient";
+
+
+        document.getElementById(
+            "popupMessage"
+        ).innerText =
+            "Starting an emergency call with " +
+            patient +
+            ".";
+
+
+        document.getElementById(
+            "popup"
+        ).style.display =
+            "block";
+
+    }
+
+
+    /* RESOLVE CASE */
+
+    function resolveCase(button) {
+
+
+        const confirmResolve =
+            confirm(
+                "Are you sure you want to mark this emergency case as resolved?"
+            );
+
+
+        if (confirmResolve) {
+
+
+            const caseItem =
+                button.closest(".case");
+
+
+            caseItem.remove();
+
+
+            updateCaseCount();
+
+        }
+
+    }
+
+
+    /* UPDATE CASE COUNT */
+
+    function updateCaseCount() {
+
+
+        const cases =
+            document.querySelectorAll(".case");
+
+
+        document.getElementById(
+            "caseCount"
+        ).innerText =
+            cases.length + " Active";
+
+
+        if (cases.length === 0) {
+
+            document.getElementById(
+                "empty"
+            ).style.display =
+                "block";
+
+        }
+
+    }
+
+
+    /* CLOSE POPUP */
+
+    function closePopup() {
+
+        document.getElementById(
+            "popup"
+        ).style.display =
+            "none";
+
+    }
+
+
+    /* NAVIGATION */
+
+    function goBack() {
+
+        alert(
+            "Returning to Doctor Dashboard..."
+        );
+
+    }
+
+
+    function goHome() {
+
+        alert(
+            "Opening Doctor Dashboard..."
+        );
+
+    }
+
+
+    function goAppointments() {
+
+        alert(
+            "Opening Appointments..."
+        );
+
+    }
+
+
+    function goProfile() {
+
+        alert(
+            "Opening Doctor Profile..."
+        );
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

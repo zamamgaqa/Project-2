@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Clinic - Availability Schedule</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3efff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* PHONE */
+
+        .phone {
+            width: 390px;
+            height: 820px;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #222;
+            box-shadow: 0 10px 40px rgba(70, 30, 130, 0.25);
+        }
+
+        /* STATUS BAR */
+
+        .status-bar {
+            height: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #222;
+        }
+
+        /* HEADER */
+
+        .header {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            padding: 0 18px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .back {
+            font-size: 28px;
+            color: #5b21b6;
+            cursor: pointer;
+            margin-right: 12px;
+        }
+
+        .header h2 {
+            color: #5521a8;
+            font-size: 20px;
+        }
+
+        /* DOCTOR INFO */
+
+        .doctor-card {
+            margin: 15px;
+            padding: 13px;
+            border-radius: 15px;
+            background: #f7f3ff;
+            display: flex;
+            align-items: center;
+        }
+
+        .doctor-image {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+        }
+
+        .doctor-info h3 {
+            font-size: 14px;
+            color: #222;
+        }
+
+        .doctor-info p {
+            font-size: 11px;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        /* WEEK DAYS */
+
+        .section-title {
+            padding: 5px 18px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title h3 {
+            color: #333;
+            font-size: 15px;
+        }
+
+        .section-title span {
+            color: #5b21b6;
+            font-size: 11px;
+        }
+
+        .days {
+            display: flex;
+            gap: 8px;
+            padding: 0 15px 15px;
+            overflow-x: auto;
+        }
+
+        .day {
+            min-width: 47px;
+            height: 63px;
+            border: 1px solid #e2daf5;
+            border-radius: 12px;
+            background: white;
+            text-align: center;
+            padding-top: 9px;
+            cursor: pointer;
+        }
+
+        .day small {
+            display: block;
+            color: #777;
+            font-size: 10px;
+            margin-bottom: 7px;
+        }
+
+        .day strong {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .day.active {
+            background: #5b21b6;
+            border-color: #5b21b6;
+        }
+
+        .day.active small,
+        .day.active strong {
+            color: white;
+        }
+
+        /* SELECTED DAY */
+
+        .selected-day {
+            margin: 0 15px;
+            padding: 12px;
+            background: #f7f3ff;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .selected-day h3 {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .selected-day span {
+            font-size: 11px;
+            color: #5b21b6;
+        }
+
+        /* TIME SLOTS */
+
+        .slots {
+            height: 310px;
+            overflow-y: auto;
+            padding: 12px 15px 100px;
+        }
+
+        .slot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            margin-bottom: 9px;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+
+        .slot-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slot-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eee7ff;
+            color: #5b21b6;
+        }
+
+        .slot-time {
+            font-size: 12px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .slot-status {
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        .available {
+            color: #2e9d59;
+        }
+
+        .booked {
+            color: #e53935;
+        }
+
+        .delete {
+            border: none;
+            background: transparent;
+            color: #e53935;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* ADD BUTTON */
+
+        .add-slot {
+            margin: 5px 15px 10px;
+            width: calc(100% - 30px);
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: #5b21b6;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-slot:hover {
+            background: #43158f;
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #777;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .nav-item span {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: #5b21b6;
+            font-weight: bold;
+        }
+
+        /* POPUP */
+
+        .popup {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            background: white;
+            padding: 22px;
+            border-radius: 18px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+
+        .popup h3 {
+            color: #5b21b6;
+            margin-bottom: 15px;
+            font-size: 17px;
+        }
+
+        .popup input {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            outline: none;
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .popup button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .save {
+            background: #5b21b6;
+            color: white;
+        }
+
+        .cancel {
+            background: #eee;
+            color: #555;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="phone">
+
+    <!-- STATUS BAR -->
+
+    <div class="status-bar">
+        <span>9:41</span>
+        <span>● ● 🔋</span>
+    </div>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div
+            class="back"
+            onclick="goBack()">
+            ‹
+        </div>
+
+        <h2>Availability Schedule</h2>
+
+    </div>
+
+
+    <!-- DOCTOR CARD -->
+
+    <div class="doctor-card">
+
+        <img
+            class="doctor-image"
+            src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=200"
+            alt="Doctor">
+
+        <div class="doctor-info">
+
+            <h3>Dr. Nkanyiso M.</h3>
+
+            <p>
+                General Practitioner
+            </p>
+
+            <p>
+                🟢 Available for consultations
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- WEEK -->
+
+    <div class="section-title">
+
+        <h3>My Schedule</h3>
+
+        <span>August 2026</span>
+
+    </div>
+
+
+    <div class="days">
+
+        <div
+            class="day"
+            onclick="selectDay(this, 'Mon 24 Aug')">
+
+            <small>MON</small>
+            <strong>24</strong>
+
+        </div>
+
+
+        <div
+            class="day active"
+            onclick="selectDay(this, 'Tue 25 Aug')">
+
+            <small>TUE</small>
+            <strong>25</strong>
+
+        </div>
+
+
+        <div
+            class="day"
+            onclick="selectDay(this, 'Wed 26 Aug')">
+
+            <small>WED</small>
+            <strong>26</strong>
+
+        </div>
+
+
+        <div
+            class="day"
+            onclick="selectDay(this, 'Thu 27 Aug')">
+
+            <small>THU</small>
+            <strong>27</strong>
+
+        </div>
+
+
+        <div
+            class="day"
+            onclick="selectDay(this, 'Fri 28 Aug')">
+
+            <small>FRI</small>
+            <strong>28</strong>
+
+        </div>
+
+
+        <div
+            class="day"
+            onclick="selectDay(this, 'Sat 29 Aug')">
+
+            <small>SAT</small>
+            <strong>29</strong>
+
+        </div>
+
+
+        <div
+            class="day"
+            onclick="selectDay(this, 'Sun 30 Aug')">
+
+            <small>SUN</small>
+            <strong>30</strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- SELECTED DAY -->
+
+    <div class="selected-day">
+
+        <h3 id="selectedDay">
+            Tuesday, 25 August
+        </h3>
+
+        <span>
+            4 Available
+        </span>
+
+    </div>
+
+
+    <!-- TIME SLOTS -->
+
+    <div
+        class="slots"
+        id="slots">
+
+
+        <!-- SLOT 1 -->
+
+        <div class="slot">
+
+            <div class="slot-left">
+
+                <div class="slot-icon">
+                    🕘
+                </div>
+
+                <div>
+
+                    <div class="slot-time">
+                        09:00 AM - 09:30 AM
+                    </div>
+
+                    <div class="slot-status available">
+                        ● Available
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                class="delete"
+                onclick="deleteSlot(this)">
+                🗑
+            </button>
+
+        </div>
+
+
+        <!-- SLOT 2 -->
+
+        <div class="slot">
+
+            <div class="slot-left">
+
+                <div class="slot-icon">
+                    🕙
+                </div>
+
+                <div>
+
+                    <div class="slot-time">
+                        10:00 AM - 10:30 AM
+                    </div>
+
+                    <div class="slot-status booked">
+                        ● Booked
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                class="delete"
+                onclick="deleteSlot(this)">
+                🗑
+            </button>
+
+        </div>
+
+
+        <!-- SLOT 3 -->
+
+        <div class="slot">
+
+            <div class="slot-left">
+
+                <div class="slot-icon">
+                    🕚
+                </div>
+
+                <div>
+
+                    <div class="slot-time">
+                        11:00 AM - 11:30 AM
+                    </div>
+
+                    <div class="slot-status available">
+                        ● Available
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                class="delete"
+                onclick="deleteSlot(this)">
+                🗑
+            </button>
+
+        </div>
+
+
+        <!-- SLOT 4 -->
+
+        <div class="slot">
+
+            <div class="slot-left">
+
+                <div class="slot-icon">
+                    🕑
+                </div>
+
+                <div>
+
+                    <div class="slot-time">
+                        02:00 PM - 02:30 PM
+                    </div>
+
+                    <div class="slot-status available">
+                        ● Available
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                class="delete"
+                onclick="deleteSlot(this)">
+                🗑
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADD SLOT -->
+
+    <button
+        class="add-slot"
+        onclick="openAddSlot()">
+
+        + Add Availability
+
+    </button>
+
+
+    <!-- BOTTOM NAV -->
+
+    <div class="bottom-nav">
+
+        <div
+            class="nav-item"
+            onclick="goHome()">
+
+            <span>🏠</span>
+            Home
+
+        </div>
+
+
+        <div
+            class="nav-item active">
+
+            <span>📅</span>
+            Schedule
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goMessages()">
+
+            <span>💬</span>
+            Messages
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goProfile()">
+
+            <span>👤</span>
+            Profile
+
+        </div>
+
+    </div>
+
+
+    <!-- ADD SLOT POPUP -->
+
+    <div
+        class="popup"
+        id="popup">
+
+        <h3>
+            Add Availability
+        </h3>
+
+        <input
+            type="time"
+            id="startTime">
+
+        <input
+            type="time"
+            id="endTime">
+
+        <div class="popup-buttons">
+
+            <button
+                class="cancel"
+                onclick="closePopup()">
+
+                Cancel
+
+            </button>
+
+            <button
+                class="save"
+                onclick="addSlot()">
+
+                Add Slot
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* SELECT DAY */
+
+    function selectDay(day, date) {
+
+        const days =
+            document.querySelectorAll(".day");
+
+        days.forEach(function(item) {
+
+            item.classList.remove("active");
+
+        });
+
+        day.classList.add("active");
+
+        document.getElementById(
+            "selectedDay"
+        ).innerText = date;
+
+    }
+
+
+    /* OPEN POPUP */
+
+    function openAddSlot() {
+
+        document.getElementById(
+            "popup"
+        ).style.display = "block";
+
+    }
+
+
+    /* CLOSE POPUP */
+
+    function closePopup() {
+
+        document.getElementById(
+            "popup"
+        ).style.display = "none";
+
+    }
+
+
+    /* ADD SLOT */
+
+    function addSlot() {
+
+        const start =
+            document.getElementById(
+                "startTime"
+            ).value;
+
+        const end =
+            document.getElementById(
+                "endTime"
+            ).value;
+
+
+        if (start === "" || end === "") {
+
+            alert(
+                "Please select a start and end time."
+            );
+
+            return;
+
+        }
+
+
+        if (start >= end) {
+
+            alert(
+                "End time must be after start time."
+            );
+
+            return;
+
+        }
+
+
+        const slots =
+            document.getElementById("slots");
+
+
+        const slot =
+            document.createElement("div");
+
+        slot.className = "slot";
+
+
+        slot.innerHTML = `
+
+            <div class="slot-left">
+
+                <div class="slot-icon">
+                    🕘
+                </div>
+
+                <div>
+
+                    <div class="slot-time">
+                        ${formatTime(start)}
+                        -
+                        ${formatTime(end)}
+                    </div>
+
+                    <div class="slot-status available">
+                        ● Available
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                class="delete"
+                onclick="deleteSlot(this)">
+                🗑
+            </button>
+
+        `;
+
+
+        slots.appendChild(slot);
+
+        closePopup();
+
+
+        document.getElementById(
+            "startTime"
+        ).value = "";
+
+        document.getElementById(
+            "endTime"
+        ).value = "";
+
+
+        alert(
+            "Availability added successfully!"
+        );
+
+    }
+
+
+    /* FORMAT TIME */
+
+    function formatTime(time) {
+
+        let [hours, minutes] =
+            time.split(":");
+
+        hours = parseInt(hours);
+
+        const ampm =
+            hours >= 12 ? "PM" : "AM";
+
+        hours =
+            hours % 12 || 12;
+
+        return (
+            hours +
+            ":" +
+            minutes +
+            " " +
+            ampm
+        );
+
+    }
+
+
+    /* DELETE SLOT */
+
+    function deleteSlot(button) {
+
+        const confirmDelete =
+            confirm(
+                "Remove this availability slot?"
+            );
+
+        if (confirmDelete) {
+
+            button.parentElement.remove();
+
+        }
+
+    }
+
+
+    /* NAVIGATION */
+
+    function goBack() {
+
+        alert(
+            "Returning to Doctor Dashboard..."
+        );
+
+    }
+
+
+    function goHome() {
+
+        alert(
+            "Opening Doctor Dashboard..."
+        );
+
+    }
+
+
+    function goMessages() {
+
+        alert(
+            "Opening Messages..."
+        );
+
+    }
+
+
+    function goProfile() {
+
+        alert(
+            "Opening Doctor Profile..."
+        );
+
+    }
+
+</script>
+
+</body>
+</html>

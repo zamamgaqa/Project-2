@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Clinic - Messages</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3efff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* PHONE */
+
+        .phone {
+            width: 390px;
+            height: 820px;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #222;
+            box-shadow: 0 10px 40px rgba(70, 30, 130, 0.25);
+        }
+
+        /* STATUS BAR */
+
+        .status-bar {
+            height: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 13px;
+            color: #222;
+        }
+
+        /* HEADER */
+
+        .header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header h2 {
+            color: #5521a8;
+            font-size: 21px;
+        }
+
+        .header-icon {
+            font-size: 23px;
+            color: #5b21b6;
+            cursor: pointer;
+        }
+
+        /* SEARCH */
+
+        .search-container {
+            padding: 14px 18px;
+        }
+
+        .search-box {
+            width: 100%;
+            height: 42px;
+            background: #f7f4ff;
+            border: 1px solid #e5def7;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .search-box span {
+            font-size: 17px;
+            margin-right: 8px;
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 12px;
+        }
+
+        /* MESSAGE LIST */
+
+        .messages-list {
+            height: 590px;
+            overflow-y: auto;
+            padding-bottom: 80px;
+        }
+
+        .conversation {
+            display: flex;
+            align-items: center;
+            padding: 13px 18px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: 0.2s;
+        }
+
+        .conversation:hover {
+            background: #faf8ff;
+        }
+
+        .conversation.unread {
+            background: #f7f2ff;
+        }
+
+        /* PROFILE IMAGE */
+
+        .profile {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 12px;
+        }
+
+        /* CONVERSATION DETAILS */
+
+        .conversation-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .conversation-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .conversation-top h3 {
+            font-size: 13px;
+            color: #222;
+        }
+
+        .time {
+            font-size: 10px;
+            color: #999;
+        }
+
+        .last-message {
+            margin-top: 5px;
+            color: #777;
+            font-size: 11px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-right: 5px;
+        }
+
+        /* UNREAD COUNT */
+
+        .unread-count {
+            background: #5b21b6;
+            color: white;
+            min-width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 5px;
+        }
+
+        /* CHAT SCREEN */
+
+        .chat-screen {
+            display: none;
+            position: absolute;
+            top: 35px;
+            left: 0;
+            width: 100%;
+            height: 777px;
+            background: white;
+            z-index: 5;
+        }
+
+        /* CHAT HEADER */
+
+        .chat-header {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .back-button {
+            font-size: 28px;
+            color: #5b21b6;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .chat-profile {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .chat-person {
+            flex: 1;
+            margin-left: 10px;
+        }
+
+        .chat-person h3 {
+            font-size: 14px;
+        }
+
+        .online-status {
+            font-size: 10px;
+            color: #35a853;
+            margin-top: 4px;
+        }
+
+        .video-call {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: #f0eaff;
+            color: #5b21b6;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        /* CHAT MESSAGES */
+
+        .chat-messages {
+            height: 585px;
+            padding: 15px;
+            overflow-y: auto;
+            background: #faf9fd;
+        }
+
+        .date {
+            text-align: center;
+            font-size: 10px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+            max-width: 75%;
+        }
+
+        .chat-message p {
+            padding: 11px 13px;
+            border-radius: 15px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .chat-message .message-time {
+            display: block;
+            font-size: 9px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .patient-message {
+            margin-right: auto;
+        }
+
+        .patient-message p {
+            background: #eee8ff;
+            color: #333;
+            border-bottom-left-radius: 4px;
+        }
+
+        .doctor-message {
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .doctor-message p {
+            background: #5b21b6;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        /* MESSAGE INPUT */
+
+        .message-input {
+            height: 75px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            gap: 6px;
+        }
+
+        .input-button {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: #f1ecff;
+            color: #5b21b6;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .message-text {
+            flex: 1;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 22px;
+            padding: 0 14px;
+            outline: none;
+            font-size: 12px;
+        }
+
+        .send-button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: #5b21b6;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #777;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .nav-item span {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: #5b21b6;
+            font-weight: bold;
+        }
+
+        /* NO RESULTS */
+
+        .no-results {
+            text-align: center;
+            padding: 50px 20px;
+            color: #777;
+            display: none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="phone">
+
+    <!-- STATUS BAR -->
+
+    <div class="status-bar">
+        <span>9:41</span>
+        <span>● ● 🔋</span>
+    </div>
+
+
+    <!-- MAIN MESSAGE PAGE -->
+
+    <div id="mainMessages">
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <h2>Messages</h2>
+
+            <div
+                class="header-icon"
+                onclick="newMessage()">
+                ✎
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-container">
+
+            <div class="search-box">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search patients..."
+                    onkeyup="searchMessages()">
+
+            </div>
+
+        </div>
+
+
+        <!-- CONVERSATIONS -->
+
+        <div class="messages-list" id="messagesList">
+
+
+            <!-- PATIENT 1 -->
+
+            <div
+                class="conversation unread"
+                data-name="Nomvula Dlamini"
+                onclick="openChat('Nomvula Dlamini',
+                'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200')">
+
+                <img
+                    class="profile"
+                    src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200"
+                    alt="Nomvula">
+
+                <div class="conversation-details">
+
+                    <div class="conversation-top">
+
+                        <h3>Nomvula Dlamini</h3>
+
+                        <span class="time">
+                            09:33 AM
+                        </span>
+
+                    </div>
+
+                    <p class="last-message">
+                        Thank you Doctor.
+                    </p>
+
+                </div>
+
+                <div class="unread-count">
+                    2
+                </div>
+
+            </div>
+
+
+            <!-- PATIENT 2 -->
+
+            <div
+                class="conversation unread"
+                data-name="Thabo Mokoena"
+                onclick="openChat('Thabo Mokoena',
+                'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200')">
+
+                <img
+                    class="profile"
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200"
+                    alt="Thabo">
+
+                <div class="conversation-details">
+
+                    <div class="conversation-top">
+
+                        <h3>Thabo Mokoena</h3>
+
+                        <span class="time">
+                            08:45 AM
+                        </span>
+
+                    </div>
+
+                    <p class="last-message">
+                        Doctor, can I change my appointment?
+                    </p>
+
+                </div>
+
+                <div class="unread-count">
+                    1
+                </div>
+
+            </div>
+
+
+            <!-- PATIENT 3 -->
+
+            <div
+                class="conversation"
+                data-name="Sarah Nkosi"
+                onclick="openChat('Sarah Nkosi',
+                'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200')">
+
+                <img
+                    class="profile"
+                    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200"
+                    alt="Sarah">
+
+                <div class="conversation-details">
+
+                    <div class="conversation-top">
+
+                        <h3>Sarah Nkosi</h3>
+
+                        <span class="time">
+                            Yesterday
+                        </span>
+
+                    </div>
+
+                    <p class="last-message">
+                        My prescription is ready.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PATIENT 4 -->
+
+            <div
+                class="conversation"
+                data-name="Sipho Ndlovu"
+                onclick="openChat('Sipho Ndlovu',
+                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200')">
+
+                <img
+                    class="profile"
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200"
+                    alt="Sipho">
+
+                <div class="conversation-details">
+
+                    <div class="conversation-top">
+
+                        <h3>Sipho Ndlovu</h3>
+
+                        <span class="time">
+                            Yesterday
+                        </span>
+
+                    </div>
+
+                    <p class="last-message">
+                        See you tomorrow Doctor.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PATIENT 5 -->
+
+            <div
+                class="conversation"
+                data-name="Lerato Khumalo"
+                onclick="openChat('Lerato Khumalo',
+                'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=200')">
+
+                <img
+                    class="profile"
+                    src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=200"
+                    alt="Lerato">
+
+                <div class="conversation-details">
+
+                    <div class="conversation-top">
+
+                        <h3>Lerato Khumalo</h3>
+
+                        <span class="time">
+                            Monday
+                        </span>
+
+                    </div>
+
+                    <p class="last-message">
+                        I am feeling much better now.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PATIENT 6 -->
+
+            <div
+                class="conversation"
+                data-name="Andile Zulu"
+                onclick="openChat('Andile Zulu',
+                'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200')">
+
+                <img
+                    class="profile"
+                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200"
+                    alt="Andile">
+
+                <div class="conversation-details">
+
+                    <div class="conversation-top">
+
+                        <h3>Andile Zulu</h3>
+
+                        <span class="time">
+                            Sunday
+                        </span>
+
+                    </div>
+
+                    <p class="last-message">
+                        Thank you for your help.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="no-results" id="noResults">
+                No patients found.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CHAT SCREEN -->
+
+    <div class="chat-screen" id="chatScreen">
+
+        <!-- CHAT HEADER -->
+
+        <div class="chat-header">
+
+            <div
+                class="back-button"
+                onclick="closeChat()">
+                ‹
+            </div>
+
+            <img
+                id="chatProfile"
+                class="chat-profile"
+                src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200"
+                alt="Patient">
+
+            <div class="chat-person">
+
+                <h3 id="chatName">
+                    Nomvula Dlamini
+                </h3>
+
+                <p class="online-status">
+                    ● Online
+                </p>
+
+            </div>
+
+            <button
+                class="video-call"
+                onclick="startVideoCall()">
+                📹
+            </button>
+
+        </div>
+
+
+        <!-- CHAT MESSAGES -->
+
+        <div
+            class="chat-messages"
+            id="chatMessages">
+
+            <div class="date">
+                Today
+            </div>
+
+
+            <div class="chat-message patient-message">
+
+                <p>
+                    Good morning Doctor, I've been
+                    having headaches since yesterday.
+                </p>
+
+                <span class="message-time">
+                    09:31 AM
+                </span>
+
+            </div>
+
+
+            <div class="chat-message doctor-message">
+
+                <p>
+                    Good morning. I'm sorry to hear
+                    that. How severe is the headache?
+                </p>
+
+                <span class="message-time">
+                    09:32 AM ✓✓
+                </span>
+
+            </div>
+
+
+            <div class="chat-message patient-message">
+
+                <p>
+                    It is mild, but it comes and goes.
+                </p>
+
+                <span class="message-time">
+                    09:32 AM
+                </span>
+
+            </div>
+
+
+            <div class="chat-message doctor-message">
+
+                <p>
+                    Okay. Let's discuss your symptoms
+                    during our consultation.
+                </p>
+
+                <span class="message-time">
+                    09:33 AM ✓✓
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MESSAGE INPUT -->
+
+        <div class="message-input">
+
+            <button
+                class="input-button"
+                onclick="attachFile()">
+                📎
+            </button>
+
+            <input
+                type="text"
+                class="message-text"
+                id="messageText"
+                placeholder="Type a message..."
+                onkeypress="handleEnter(event)">
+
+            <button
+                class="input-button"
+                onclick="addEmoji()">
+                😊
+            </button>
+
+            <button
+                class="send-button"
+                onclick="sendMessage()">
+                ➤
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <div class="bottom-nav">
+
+        <div
+            class="nav-item"
+            onclick="goHome()">
+
+            <span>🏠</span>
+            Home
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goAppointments()">
+
+            <span>📅</span>
+            Appointments
+
+        </div>
+
+
+        <div class="nav-item active">
+
+            <span>💬</span>
+            Messages
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goProfile()">
+
+            <span>👤</span>
+            Profile
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* OPEN CHAT */
+
+    function openChat(name, image) {
+
+        document.getElementById("chatName").innerText = name;
+
+        document.getElementById("chatProfile").src = image;
+
+        document.getElementById("chatScreen").style.display = "block";
+
+        document.getElementById("mainMessages").style.display = "none";
+
+        /* Mark conversation as read */
+
+        const conversations =
+            document.querySelectorAll(".conversation");
+
+        conversations.forEach(function(conversation) {
+
+            if (
+                conversation.dataset.name === name
+            ) {
+
+                conversation.classList.remove("unread");
+
+                const unread =
+                    conversation.querySelector(
+                        ".unread-count"
+                    );
+
+                if (unread) {
+                    unread.remove();
+                }
+
+            }
+
+        });
+
+    }
+
+
+    /* CLOSE CHAT */
+
+    function closeChat() {
+
+        document.getElementById(
+            "chatScreen"
+        ).style.display = "none";
+
+        document.getElementById(
+            "mainMessages"
+        ).style.display = "block";
+
+    }
+
+
+    /* SEND MESSAGE */
+
+    function sendMessage() {
+
+        const input =
+            document.getElementById("messageText");
+
+        const message =
+            input.value.trim();
+
+        if (message === "") {
+
+            alert("Please type a message.");
+
+            return;
+        }
+
+
+        const chatMessages =
+            document.getElementById("chatMessages");
+
+
+        const messageContainer =
+            document.createElement("div");
+
+        messageContainer.className =
+            "chat-message doctor-message";
+
+
+        messageContainer.innerHTML = `
+
+            <p>${message}</p>
+
+            <span class="message-time">
+                Now ✓✓
+            </span>
+
+        `;
+
+
+        chatMessages.appendChild(
+            messageContainer
+        );
+
+
+        input.value = "";
+
+
+        /* Scroll to newest message */
+
+        chatMessages.scrollTop =
+            chatMessages.scrollHeight;
+
+    }
+
+
+    /* ENTER TO SEND */
+
+    function handleEnter(event) {
+
+        if (event.key === "Enter") {
+
+            sendMessage();
+
+        }
+
+    }
+
+
+    /* EMOJI */
+
+    function addEmoji() {
+
+        const input =
+            document.getElementById("messageText");
+
+        input.value += " 😊";
+
+        input.focus();
+
+    }
+
+
+    /* ATTACHMENT */
+
+    function attachFile() {
+
+        alert(
+            "Attachment feature selected."
+        );
+
+    }
+
+
+    /* VIDEO CALL */
+
+    function startVideoCall() {
+
+        alert(
+            "Starting video consultation..."
+        );
+
+    }
+
+
+    /* SEARCH */
+
+    function searchMessages() {
+
+        const input =
+            document.getElementById(
+                "searchInput"
+            );
+
+        const search =
+            input.value.toLowerCase();
+
+        const conversations =
+            document.querySelectorAll(
+                ".conversation"
+            );
+
+        let found = false;
+
+
+        conversations.forEach(
+            function(conversation) {
+
+                const name =
+                    conversation.dataset.name
+                    .toLowerCase();
+
+
+                if (name.includes(search)) {
+
+                    conversation.style.display =
+                        "flex";
+
+                    found = true;
+
+                } else {
+
+                    conversation.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+
+        document.getElementById(
+            "noResults"
+        ).style.display =
+            found ? "none" : "block";
+
+    }
+
+
+    /* NEW MESSAGE */
+
+    function newMessage() {
+
+        alert(
+            "New message screen will open here."
+        );
+
+    }
+
+
+    /* NAVIGATION */
+
+    function goHome() {
+
+        alert(
+            "Opening Doctor Dashboard..."
+        );
+
+    }
+
+
+    function goAppointments() {
+
+        alert(
+            "Opening Appointments..."
+        );
+
+    }
+
+
+    function goProfile() {
+
+        alert(
+            "Opening Doctor Profile..."
+        );
+
+    }
+
+</script>
+
+</body>
+</html>

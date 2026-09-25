@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Clinic - Earnings & Reports</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3efff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* PHONE */
+
+        .phone {
+            width: 390px;
+            height: 820px;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #222;
+            box-shadow: 0 10px 40px rgba(70, 30, 130, 0.25);
+        }
+
+        /* STATUS BAR */
+
+        .status-bar {
+            height: 35px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 20px;
+
+            font-size: 13px;
+            color: #222;
+        }
+
+        /* HEADER */
+
+        .header {
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 18px;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .back {
+            font-size: 28px;
+            color: #5b21b6;
+
+            cursor: pointer;
+
+            margin-right: 12px;
+        }
+
+        .header h2 {
+            color: #5521a8;
+            font-size: 20px;
+        }
+
+        /* CONTENT */
+
+        .content {
+            height: 650px;
+
+            overflow-y: auto;
+
+            padding-bottom: 90px;
+        }
+
+        /* WELCOME */
+
+        .welcome {
+            padding: 18px;
+        }
+
+        .welcome h3 {
+            font-size: 17px;
+            color: #222;
+        }
+
+        .welcome p {
+            margin-top: 5px;
+
+            color: #777;
+
+            font-size: 11px;
+        }
+
+        /* FILTER */
+
+        .filters {
+            display: flex;
+
+            gap: 8px;
+
+            padding: 0 15px 15px;
+        }
+
+        .filter {
+            border: 1px solid #ddd;
+
+            background: white;
+
+            padding: 8px 15px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            cursor: pointer;
+        }
+
+        .filter.active {
+            background: #5b21b6;
+
+            color: white;
+
+            border-color: #5b21b6;
+        }
+
+        /* EARNINGS CARD */
+
+        .earnings-card {
+            margin: 0 15px 15px;
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            background: #5b21b6;
+
+            color: white;
+
+            box-shadow: 0 8px 20px rgba(91, 33, 182, 0.25);
+        }
+
+        .earnings-card p {
+            font-size: 11px;
+
+            opacity: 0.8;
+        }
+
+        .earnings-card h1 {
+            margin-top: 8px;
+
+            font-size: 30px;
+        }
+
+        .earnings-change {
+            margin-top: 8px;
+
+            font-size: 11px;
+
+            color: #d9ffd9;
+        }
+
+        /* STATISTICS */
+
+        .stats {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 10px;
+
+            padding: 0 15px;
+
+            margin-bottom: 18px;
+        }
+
+        .stat {
+            background: #faf8ff;
+
+            border: 1px solid #eee7ff;
+
+            border-radius: 14px;
+
+            padding: 15px;
+        }
+
+        .stat-icon {
+            font-size: 20px;
+
+            margin-bottom: 8px;
+        }
+
+        .stat h3 {
+            color: #333;
+
+            font-size: 17px;
+        }
+
+        .stat p {
+            margin-top: 4px;
+
+            color: #777;
+
+            font-size: 10px;
+        }
+
+        /* SECTION TITLE */
+
+        .section-title {
+            padding: 0 15px 10px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .section-title h3 {
+            color: #333;
+
+            font-size: 15px;
+        }
+
+        .section-title span {
+            color: #5b21b6;
+
+            font-size: 10px;
+        }
+
+        /* CHART */
+
+        .chart {
+            margin: 0 15px 20px;
+
+            height: 180px;
+
+            border-radius: 15px;
+
+            background: #faf8ff;
+
+            border: 1px solid #eee7ff;
+
+            padding: 15px;
+
+            position: relative;
+        }
+
+        .chart-title {
+            font-size: 11px;
+
+            color: #777;
+
+            margin-bottom: 8px;
+        }
+
+        .bars {
+            height: 125px;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-around;
+
+            border-bottom: 1px solid #ddd;
+        }
+
+        .bar-container {
+            height: 120px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: flex-end;
+
+            align-items: center;
+        }
+
+        .bar {
+            width: 24px;
+
+            background: #7c3aed;
+
+            border-radius: 5px 5px 0 0;
+
+            transition: 0.3s;
+
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            background: #5b21b6;
+        }
+
+        .bar-label {
+            font-size: 9px;
+
+            color: #777;
+
+            margin-top: 5px;
+        }
+
+        /* TRANSACTIONS */
+
+        .transactions {
+            padding: 0 15px 20px;
+        }
+
+        .transaction {
+            display: flex;
+
+            align-items: center;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .transaction-icon {
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 10px;
+
+            background: #eee7ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-right: 10px;
+
+            font-size: 18px;
+        }
+
+        .transaction-info {
+            flex: 1;
+        }
+
+        .transaction-info h4 {
+            font-size: 12px;
+
+            color: #333;
+        }
+
+        .transaction-info p {
+            font-size: 9px;
+
+            color: #999;
+
+            margin-top: 4px;
+        }
+
+        .amount {
+            font-size: 12px;
+
+            color: #24904a;
+
+            font-weight: bold;
+        }
+
+        /* DOWNLOAD */
+
+        .download {
+            margin: 0 15px 20px;
+
+            width: calc(100% - 30px);
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #5b21b6;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .download:hover {
+            background: #43158f;
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom-nav {
+            position: absolute;
+
+            bottom: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 70px;
+
+            background: white;
+
+            border-top: 1px solid #eee;
+
+            display: flex;
+
+            justify-content: space-around;
+
+            align-items: center;
+        }
+
+        .nav-item {
+            text-align: center;
+
+            color: #777;
+
+            font-size: 10px;
+
+            cursor: pointer;
+        }
+
+        .nav-item span {
+            display: block;
+
+            font-size: 20px;
+
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: #5b21b6;
+
+            font-weight: bold;
+        }
+
+        /* POPUP */
+
+        .popup {
+            display: none;
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            width: 85%;
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+            z-index: 10;
+
+            text-align: center;
+        }
+
+        .popup h3 {
+            color: #5b21b6;
+
+            margin-bottom: 10px;
+        }
+
+        .popup p {
+            color: #777;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+        .popup button {
+            margin-top: 15px;
+
+            padding: 10px 25px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #5b21b6;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<div class="phone">
+
+
+    <!-- STATUS BAR -->
+
+    <div class="status-bar">
+
+        <span>9:41</span>
+
+        <span>● ● 🔋</span>
+
+    </div>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div
+            class="back"
+            onclick="goBack()">
+
+            ‹
+
+        </div>
+
+        <h2>
+            Earnings & Reports
+        </h2>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome">
+
+            <h3>
+                Financial Overview
+            </h3>
+
+            <p>
+                Track your consultation earnings
+                and financial reports.
+            </p>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="filters">
+
+            <button
+                class="filter"
+                onclick="changePeriod('Today', this)">
+
+                Today
+
+            </button>
+
+            <button
+                class="filter"
+                onclick="changePeriod('This Week', this)">
+
+                Week
+
+            </button>
+
+            <button
+                class="filter active"
+                onclick="changePeriod('This Month', this)">
+
+                Month
+
+            </button>
+
+            <button
+                class="filter"
+                onclick="changePeriod('This Year', this)">
+
+                Year
+
+            </button>
+
+        </div>
+
+
+        <!-- TOTAL EARNINGS -->
+
+        <div class="earnings-card">
+
+            <p>
+                Total Earnings
+            </p>
+
+            <h1 id="totalEarnings">
+                R24,850
+            </h1>
+
+            <div class="earnings-change">
+
+                ↑ 12.5% compared to last month
+
+            </div>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🩺
+                </div>
+
+                <h3>
+                    86
+                </h3>
+
+                <p>
+                    Consultations
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <h3>
+                    R289
+                </h3>
+
+                <p>
+                    Average per consultation
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📅
+                </div>
+
+                <h3>
+                    24
+                </h3>
+
+                <p>
+                    This week
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📈
+                </div>
+
+                <h3>
+                    12.5%
+                </h3>
+
+                <p>
+                    Growth
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- CHART TITLE -->
+
+        <div class="section-title">
+
+            <h3>
+                Earnings Overview
+            </h3>
+
+            <span id="chartPeriod">
+                August 2026
+            </span>
+
+        </div>
+
+
+        <!-- CHART -->
+
+        <div class="chart">
+
+            <div class="chart-title">
+                Monthly earnings (R)
+            </div>
+
+
+            <div class="bars">
+
+
+                <div class="bar-container">
+
+                    <div
+                        class="bar"
+                        style="height: 45px"
+                        title="R2,500">
+                    </div>
+
+                    <span class="bar-label">
+                        Jan
+                    </span>
+
+                </div>
+
+
+                <div class="bar-container">
+
+                    <div
+                        class="bar"
+                        style="height: 65px"
+                        title="R3,600">
+                    </div>
+
+                    <span class="bar-label">
+                        Feb
+                    </span>
+
+                </div>
+
+
+                <div class="bar-container">
+
+                    <div
+                        class="bar"
+                        style="height: 80px"
+                        title="R4,800">
+                    </div>
+
+                    <span class="bar-label">
+                        Mar
+                    </span>
+
+                </div>
+
+
+                <div class="bar-container">
+
+                    <div
+                        class="bar"
+                        style="height: 60px"
+                        title="R3,900">
+                    </div>
+
+                    <span class="bar-label">
+                        Apr
+                    </span>
+
+                </div>
+
+
+                <div class="bar-container">
+
+                    <div
+                        class="bar"
+                        style="height: 90px"
+                        title="R5,200">
+                    </div>
+
+                    <span class="bar-label">
+                        May
+                    </span>
+
+                </div>
+
+
+                <div class="bar-container">
+
+                    <div
+                        class="bar"
+                        style="height: 105px"
+                        title="R6,400">
+                    </div>
+
+                    <span class="bar-label">
+                        Jun
+                    </span>
+
+                </div>
+
+
+                <div class="bar-container">
+
+                    <div
+                        class="bar"
+                        style="height: 115px"
+                        title="R7,200">
+                    </div>
+
+                    <span class="bar-label">
+                        Jul
+                    </span>
+
+                </div>
+
+
+                <div class="bar-container">
+
+                    <div
+                        class="bar"
+                        style="height: 125px"
+                        title="R8,100">
+                    </div>
+
+                    <span class="bar-label">
+                        Aug
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- TRANSACTION TITLE -->
+
+        <div class="section-title">
+
+            <h3>
+                Recent Transactions
+            </h3>
+
+            <span>
+                View All
+            </span>
+
+        </div>
+
+
+        <!-- TRANSACTIONS -->
+
+        <div class="transactions">
+
+
+            <div class="transaction">
+
+                <div class="transaction-icon">
+                    🩺
+                </div>
+
+                <div class="transaction-info">
+
+                    <h4>
+                        Video Consultation
+                    </h4>
+
+                    <p>
+                        Nomvula Dlamini • Today
+                    </p>
+
+                </div>
+
+                <div class="amount">
+                    + R350
+                </div>
+
+            </div>
+
+
+            <div class="transaction">
+
+                <div class="transaction-icon">
+                    🩺
+                </div>
+
+                <div class="transaction-info">
+
+                    <h4>
+                        General Consultation
+                    </h4>
+
+                    <p>
+                        Thabo Mokoena • Today
+                    </p>
+
+                </div>
+
+                <div class="amount">
+                    + R300
+                </div>
+
+            </div>
+
+
+            <div class="transaction">
+
+                <div class="transaction-icon">
+                    💊
+                </div>
+
+                <div class="transaction-info">
+
+                    <h4>
+                        Prescription Consultation
+                    </h4>
+
+                    <p>
+                        Sarah Nkosi • Yesterday
+                    </p>
+
+                </div>
+
+                <div class="amount">
+                    + R250
+                </div>
+
+            </div>
+
+
+            <div class="transaction">
+
+                <div class="transaction-icon">
+                    🩺
+                </div>
+
+                <div class="transaction-info">
+
+                    <h4>
+                        Follow-up Consultation
+                    </h4>
+
+                    <p>
+                        Sipho Ndlovu • Yesterday
+                    </p>
+
+                </div>
+
+                <div class="amount">
+                    + R300
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- DOWNLOAD -->
+
+        <button
+            class="download"
+            onclick="downloadReport()">
+
+            📥 Download Earnings Report
+
+        </button>
+
+
+    </div>
+
+
+    <!-- BOTTOM NAV -->
+
+    <div class="bottom-nav">
+
+
+        <div
+            class="nav-item"
+            onclick="goHome()">
+
+            <span>
+                🏠
+            </span>
+
+            Home
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goAppointments()">
+
+            <span>
+                📅
+            </span>
+
+            Appointments
+
+        </div>
+
+
+        <div
+            class="nav-item active">
+
+            <span>
+                📊
+            </span>
+
+            Reports
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goProfile()">
+
+            <span>
+                👤
+            </span>
+
+            Profile
+
+        </div>
+
+
+    </div>
+
+
+    <!-- POPUP -->
+
+    <div
+        class="popup"
+        id="popup">
+
+        <h3>
+            Report Ready
+        </h3>
+
+        <p>
+            Your earnings report has been
+            prepared successfully.
+        </p>
+
+        <button
+            onclick="closePopup()">
+
+            Close
+
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+    /* CHANGE PERIOD */
+
+    function changePeriod(period, button) {
+
+
+        const filters =
+            document.querySelectorAll(".filter");
+
+
+        filters.forEach(function(filter) {
+
+            filter.classList.remove("active");
+
+        });
+
+
+        button.classList.add("active");
+
+
+        const earnings =
+            document.getElementById(
+                "totalEarnings"
+            );
+
+
+        const chartPeriod =
+            document.getElementById(
+                "chartPeriod"
+            );
+
+
+        if (period === "Today") {
+
+            earnings.innerText = "R1,250";
+
+            chartPeriod.innerText =
+                "Today";
+
+        }
+
+        else if (period === "This Week") {
+
+            earnings.innerText = "R6,850";
+
+            chartPeriod.innerText =
+                "This Week";
+
+        }
+
+        else if (period === "This Month") {
+
+            earnings.innerText = "R24,850";
+
+            chartPeriod.innerText =
+                "August 2026";
+
+        }
+
+        else if (period === "This Year") {
+
+            earnings.innerText = "R185,600";
+
+            chartPeriod.innerText =
+                "2026";
+
+        }
+
+    }
+
+
+    /* DOWNLOAD REPORT */
+
+    function downloadReport() {
+
+        document.getElementById(
+            "popup"
+        ).style.display = "block";
+
+    }
+
+
+    /* CLOSE POPUP */
+
+    function closePopup() {
+
+        document.getElementById(
+            "popup"
+        ).style.display = "none";
+
+    }
+
+
+    /* NAVIGATION */
+
+    function goBack() {
+
+        alert(
+            "Returning to Doctor Dashboard..."
+        );
+
+    }
+
+
+    function goHome() {
+
+        alert(
+            "Opening Doctor Dashboard..."
+        );
+
+    }
+
+
+    function goAppointments() {
+
+        alert(
+            "Opening Appointments..."
+        );
+
+    }
+
+
+    function goProfile() {
+
+        alert(
+            "Opening Doctor Profile..."
+        );
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

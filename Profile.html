@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Clinic - Profile Settings</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3efff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* PHONE */
+
+        .phone {
+            width: 390px;
+            height: 820px;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            border: 8px solid #222;
+            box-shadow: 0 10px 40px rgba(70, 30, 130, 0.25);
+        }
+
+        /* STATUS BAR */
+
+        .status-bar {
+            height: 35px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 0 20px;
+
+            font-size: 13px;
+            color: #222;
+        }
+
+        /* HEADER */
+
+        .header {
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+
+            padding: 0 18px;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .back {
+            font-size: 28px;
+            color: #5b21b6;
+
+            cursor: pointer;
+
+            margin-right: 12px;
+        }
+
+        .header h2 {
+            color: #5521a8;
+            font-size: 20px;
+        }
+
+        /* CONTENT */
+
+        .content {
+            height: 650px;
+
+            overflow-y: auto;
+
+            padding-bottom: 90px;
+        }
+
+        /* PROFILE */
+
+        .profile-section {
+            text-align: center;
+
+            padding: 20px 15px;
+        }
+
+        .profile-container {
+            position: relative;
+
+            display: inline-block;
+        }
+
+        .profile-image {
+            width: 90px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 4px solid #eee7ff;
+        }
+
+        .camera-button {
+            position: absolute;
+
+            bottom: 2px;
+            right: 2px;
+
+            width: 30px;
+            height: 30px;
+
+            border-radius: 50%;
+
+            border: 3px solid white;
+
+            background: #5b21b6;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 13px;
+        }
+
+        .profile-section h3 {
+            margin-top: 10px;
+
+            font-size: 18px;
+
+            color: #222;
+        }
+
+        .profile-section p {
+            margin-top: 5px;
+
+            font-size: 11px;
+
+            color: #777;
+        }
+
+        /* STATUS */
+
+        .availability {
+            margin: 0 15px 15px;
+
+            padding: 13px;
+
+            border-radius: 14px;
+
+            background: #f7f3ff;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .availability-info {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+
+            border-radius: 50%;
+
+            background: #2eaa58;
+        }
+
+        .availability-info h4 {
+            font-size: 12px;
+
+            color: #333;
+        }
+
+        .availability-info p {
+            font-size: 9px;
+
+            color: #777;
+
+            margin-top: 3px;
+        }
+
+        /* TOGGLE */
+
+        .toggle {
+            width: 42px;
+            height: 23px;
+
+            border-radius: 20px;
+
+            background: #5b21b6;
+
+            position: relative;
+
+            cursor: pointer;
+        }
+
+        .toggle::after {
+            content: "";
+
+            width: 17px;
+            height: 17px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            position: absolute;
+
+            top: 3px;
+            right: 3px;
+
+            transition: 0.3s;
+        }
+
+        .toggle.off {
+            background: #ccc;
+        }
+
+        .toggle.off::after {
+            right: 22px;
+        }
+
+        /* SECTION */
+
+        .section-title {
+            padding: 8px 18px;
+
+            color: #777;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+        }
+
+        /* SETTINGS */
+
+        .settings {
+            margin: 0 15px 12px;
+
+            border-radius: 14px;
+
+            border: 1px solid #eee;
+
+            overflow: hidden;
+        }
+
+        .setting {
+            min-height: 55px;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 10px 13px;
+
+            border-bottom: 1px solid #eee;
+
+            cursor: pointer;
+        }
+
+        .setting:last-child {
+            border-bottom: none;
+        }
+
+        .setting:hover {
+            background: #faf8ff;
+        }
+
+        .setting-icon {
+            width: 37px;
+            height: 37px;
+
+            border-radius: 10px;
+
+            background: #eee7ff;
+
+            color: #5b21b6;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-right: 11px;
+
+            font-size: 17px;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-info h4 {
+            font-size: 12px;
+
+            color: #333;
+        }
+
+        .setting-info p {
+            font-size: 9px;
+
+            color: #999;
+
+            margin-top: 3px;
+        }
+
+        .arrow {
+            font-size: 20px;
+
+            color: #aaa;
+        }
+
+        /* LOGOUT */
+
+        .logout {
+            margin: 15px;
+
+            width: calc(100% - 30px);
+
+            padding: 12px;
+
+            border: 1px solid #f0cccc;
+
+            background: #fff7f7;
+
+            color: #d93636;
+
+            border-radius: 12px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        /* BOTTOM NAV */
+
+        .bottom-nav {
+            position: absolute;
+
+            bottom: 0;
+            left: 0;
+
+            width: 100%;
+
+            height: 70px;
+
+            background: white;
+
+            border-top: 1px solid #eee;
+
+            display: flex;
+
+            justify-content: space-around;
+
+            align-items: center;
+        }
+
+        .nav-item {
+            text-align: center;
+
+            color: #777;
+
+            font-size: 10px;
+
+            cursor: pointer;
+        }
+
+        .nav-item span {
+            display: block;
+
+            font-size: 20px;
+
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: #5b21b6;
+
+            font-weight: bold;
+        }
+
+        /* POPUP */
+
+        .popup {
+            display: none;
+
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            width: 85%;
+
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+            z-index: 20;
+        }
+
+        .popup h3 {
+            color: #5b21b6;
+
+            margin-bottom: 15px;
+
+            font-size: 17px;
+        }
+
+        .popup input {
+            width: 100%;
+
+            padding: 11px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            margin-bottom: 10px;
+
+            outline: none;
+        }
+
+        .popup button {
+            width: 100%;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #5b21b6;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+        .close {
+            margin-top: 8px !important;
+
+            background: #eee !important;
+
+            color: #555 !important;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="phone">
+
+
+    <!-- STATUS BAR -->
+
+    <div class="status-bar">
+
+        <span>9:41</span>
+
+        <span>● ● 🔋</span>
+
+    </div>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div
+            class="back"
+            onclick="goBack()">
+
+            ‹
+
+        </div>
+
+        <h2>
+            Profile & Settings
+        </h2>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+        <!-- PROFILE -->
+
+        <div class="profile-section">
+
+            <div class="profile-container">
+
+                <img
+                    id="profileImage"
+                    class="profile-image"
+                    src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300"
+                    alt="Doctor">
+
+                <button
+                    class="camera-button"
+                    onclick="changePhoto()">
+
+                    📷
+
+                </button>
+
+            </div>
+
+            <h3>
+                Dr. Nkanyiso Mseleku
+            </h3>
+
+            <p>
+                General Practitioner
+            </p>
+
+            <p>
+                Smart Clinic Medical Centre
+            </p>
+
+        </div>
+
+
+        <!-- AVAILABILITY -->
+
+        <div class="availability">
+
+            <div class="availability-info">
+
+                <div
+                    class="status-dot"
+                    id="statusDot">
+                </div>
+
+                <div>
+
+                    <h4 id="availabilityText">
+                        Available for consultations
+                    </h4>
+
+                    <p>
+                        Patients can book appointments
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="toggle"
+                id="availabilityToggle"
+                onclick="toggleAvailability()">
+            </div>
+
+        </div>
+
+
+        <!-- ACCOUNT -->
+
+        <div class="section-title">
+            Account
+        </div>
+
+
+        <div class="settings">
+
+
+            <!-- EDIT PROFILE -->
+
+            <div
+                class="setting"
+                onclick="editProfile()">
+
+                <div class="setting-icon">
+                    👤
+                </div>
+
+                <div class="setting-info">
+
+                    <h4>
+                        Edit Profile
+                    </h4>
+
+                    <p>
+                        Update your personal information
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <!-- PROFESSIONAL INFO -->
+
+            <div
+                class="setting"
+                onclick="professionalInfo()">
+
+                <div class="setting-icon">
+                    🩺
+                </div>
+
+                <div class="setting-info">
+
+                    <h4>
+                        Professional Information
+                    </h4>
+
+                    <p>
+                        Licence, speciality and credentials
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <!-- SECURITY -->
+
+            <div
+                class="setting"
+                onclick="securitySettings()">
+
+                <div class="setting-icon">
+                    🔐
+                </div>
+
+                <div class="setting-info">
+
+                    <h4>
+                        Security
+                    </h4>
+
+                    <p>
+                        Password and account security
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- PREFERENCES -->
+
+        <div class="section-title">
+            Preferences
+        </div>
+
+
+        <div class="settings">
+
+
+            <!-- NOTIFICATIONS -->
+
+            <div
+                class="setting"
+                onclick="notificationSettings()">
+
+                <div class="setting-icon">
+                    🔔
+                </div>
+
+                <div class="setting-info">
+
+                    <h4>
+                        Notifications
+                    </h4>
+
+                    <p>
+                        Manage appointment and message alerts
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <!-- LANGUAGE -->
+
+            <div
+                class="setting"
+                onclick="languageSettings()">
+
+                <div class="setting-icon">
+                    🌐
+                </div>
+
+                <div class="setting-info">
+
+                    <h4>
+                        Language
+                    </h4>
+
+                    <p>
+                        English
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <!-- PRIVACY -->
+
+            <div
+                class="setting"
+                onclick="privacySettings()">
+
+                <div class="setting-icon">
+                    🛡️
+                </div>
+
+                <div class="setting-info">
+
+                    <h4>
+                        Privacy
+                    </h4>
+
+                    <p>
+                        Manage patient data and privacy
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <button
+            class="logout"
+            onclick="logout()">
+
+            🚪 Log Out
+
+        </button>
+
+
+    </div>
+
+
+    <!-- BOTTOM NAV -->
+
+    <div class="bottom-nav">
+
+
+        <div
+            class="nav-item"
+            onclick="goHome()">
+
+            <span>
+                🏠
+            </span>
+
+            Home
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goAppointments()">
+
+            <span>
+                📅
+            </span>
+
+            Appointments
+
+        </div>
+
+
+        <div
+            class="nav-item"
+            onclick="goMessages()">
+
+            <span>
+                💬
+            </span>
+
+            Messages
+
+        </div>
+
+
+        <div
+            class="nav-item active">
+
+            <span>
+                👤
+            </span>
+
+            Profile
+
+        </div>
+
+
+    </div>
+
+
+    <!-- EDIT PROFILE POPUP -->
+
+    <div
+        class="popup"
+        id="editPopup">
+
+        <h3>
+            Edit Profile
+        </h3>
+
+        <input
+            type="text"
+            id="doctorName"
+            value="Dr. Nkanyiso Mseleku"
+            placeholder="Full name">
+
+        <input
+            type="text"
+            id="speciality"
+            value="General Practitioner"
+            placeholder="Speciality">
+
+        <input
+            type="email"
+            id="email"
+            value="doctor@smartclinic.com"
+            placeholder="Email">
+
+        <button
+            onclick="saveProfile()">
+
+            Save Changes
+
+        </button>
+
+        <button
+            class="close"
+            onclick="closePopup()">
+
+            Cancel
+
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+    /* AVAILABILITY */
+
+    function toggleAvailability() {
+
+        const toggle =
+            document.getElementById(
+                "availabilityToggle"
+            );
+
+        const text =
+            document.getElementById(
+                "availabilityText"
+            );
+
+        const dot =
+            document.getElementById(
+                "statusDot"
+            );
+
+
+        toggle.classList.toggle("off");
+
+
+        if (toggle.classList.contains("off")) {
+
+            text.innerText =
+                "Currently unavailable";
+
+            dot.style.background =
+                "#e53935";
+
+        } else {
+
+            text.innerText =
+                "Available for consultations";
+
+            dot.style.background =
+                "#2eaa58";
+
+        }
+
+    }
+
+
+    /* CHANGE PHOTO */
+
+    function changePhoto() {
+
+        alert(
+            "Profile photo selection opened."
+        );
+
+    }
+
+
+    /* EDIT PROFILE */
+
+    function editProfile() {
+
+        document.getElementById(
+            "editPopup"
+        ).style.display = "block";
+
+    }
+
+
+    /* SAVE PROFILE */
+
+    function saveProfile() {
+
+        const name =
+            document.getElementById(
+                "doctorName"
+            ).value;
+
+        const speciality =
+            document.getElementById(
+                "speciality"
+            ).value;
+
+
+        if (name === "" || speciality === "") {
+
+            alert(
+                "Please complete your profile."
+            );
+
+            return;
+
+        }
+
+
+        document.querySelector(
+            ".profile-section h3"
+        ).innerText = name;
+
+
+        document.querySelector(
+            ".profile-section p"
+        ).innerText = speciality;
+
+
+        closePopup();
+
+
+        alert(
+            "Profile updated successfully!"
+        );
+
+    }
+
+
+    /* CLOSE POPUP */
+
+    function closePopup() {
+
+        document.getElementById(
+            "editPopup"
+        ).style.display = "none";
+
+    }
+
+
+    /* OTHER SETTINGS */
+
+    function professionalInfo() {
+
+        alert(
+            "Professional information settings opened."
+        );
+
+    }
+
+
+    function securitySettings() {
+
+        alert(
+            "Security settings opened."
+        );
+
+    }
+
+
+    function notificationSettings() {
+
+        alert(
+            "Notification settings opened."
+        );
+
+    }
+
+
+    function languageSettings() {
+
+        alert(
+            "Language settings opened."
+        );
+
+    }
+
+
+    function privacySettings() {
+
+        alert(
+            "Privacy settings opened."
+        );
+
+    }
+
+
+    /* LOGOUT */
+
+    function logout() {
+
+        const confirmLogout =
+            confirm(
+                "Are you sure you want to log out?"
+            );
+
+
+        if (confirmLogout) {
+
+            alert(
+                "You have been logged out."
+            );
+
+        }
+
+    }
+
+
+    /* NAVIGATION */
+
+    function goBack() {
+
+        alert(
+            "Returning to Doctor Dashboard..."
+        );
+
+    }
+
+
+    function goHome() {
+
+        alert(
+            "Opening Doctor Dashboard..."
+        );
+
+    }
+
+
+    function goAppointments() {
+
+        alert(
+            "Opening Appointments..."
+        );
+
+    }
+
+
+    function goMessages() {
+
+        alert(
+            "Opening Messages..."
+        );
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>
