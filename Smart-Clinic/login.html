@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Clinic - Login</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#6C63FF" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="phone-frame">
+    <div class="auth-page">
+      <div class="auth-circle-1"></div>
+      <div class="auth-circle-2"></div>
+
+      <div class="auth-icon-wrap small" style="margin-top: 44px;">
+        <img src="assets/patient-icon.svg" alt="Smart Clinic" />
+      </div>
+
+      <h1 class="auth-heading" style="margin-top: 10px;">Welcome back!</h1>
+      <p class="auth-subtext" style="margin-top: 4px;">Let's help you meet up your tasks</p>
+
+      <form id="loginForm" class="auth-form">
+        <input type="text" id="loginUsername" class="auth-input" placeholder="Enter your username" required />
+        <input type="password" id="loginPassword" class="auth-input" placeholder="Enter your password" required />
+
+        <div class="auth-forgot-link">
+          <a href="forgot-password.html">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="auth-primary-btn" style="margin: 6px 0 0 0;">Log In</button>
+      </form>
+
+      <p class="auth-switch-row">Don't have an account? <a href="register.html">Register</a></p>
+
+      <div class="auth-demo-section">
+        <p>or try a quick demo account</p>
+        <button
+          type="button"
+          class="auth-demo-btn"
+          data-firstname="Sarah"
+          data-fullname="Mrs Smith"
+          data-role="patient">
+          Demo: Log in as Mrs Smith (Patient)
+        </button>
+        <button
+          type="button"
+          class="auth-demo-btn"
+          data-firstname="John"
+          data-fullname="Dr John Smith"
+          data-role="doctor">
+          Demo: Log in as Dr John Smith (Doctor)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
