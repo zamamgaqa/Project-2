@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Appointment</title>
+   
+   <link rel="html" href="SPLASH.html" />
+  <link rel="html" href="WELCOME.html" />
+  <link rel="html" href="HOME.html" />
+  <link rel="html" href="APPOINTMENT.html" />
+  <link rel="html" href="BOOKAPPOINTMENT.html" />
+  <link rel="html" href="CONFIRMAPPOINTMENT.html" />
+  <link rel="html" href="APPOINTMENTCONFI,ED.html" />
+  <link rel="html" href="NOTIFICATION.html" />
+  <link rel="html" href="PROFILEMENU.html" />
+  <link rel="html" href="SEARCHDOCTORS.html" />
+  <link rel="html" href="PROFILE.html" />
+  <link rel="stylesheet" href="STYLINNG.css" />
+  
+</head>
+<body>
+
+  <div class="phone-card booking-page">
+    <div class="booking-card" style="background:transparent; padding:0;">
+      <div class="booking-title">Smart Clinic</div>
+      <div class="breadcrumb">1.Details &gt; 2.Date &gt; 3.Time &gt; Confirm Booking</div>
+
+      <div class="field-label">Select Doctor</div>
+      <select class="select-outline">
+        <option>Dr J.Machiel (For Emergency)</option>
+        <option>Dr Simon Josh</option>
+        <option>Dr Sarah Howard</option>
+      </select>
+
+      <div class="radio-grid">
+        <label class="radio-option"><input type="radio" name="reason" checked /> Emergency</label>
+        <label class="radio-option"><input type="radio" name="reason" /> Antenatal</label>
+        <label class="radio-option"><input type="radio" name="reason" /> Child Health</label>
+        <label class="radio-option"><input type="radio" name="reason" /> Normal Check-up</label>
+        <label class="radio-option"><input type="radio" name="reason" /> Old</label>
+        <label class="radio-option"><input type="radio" name="reason" /> Family Planning</label>
+        <label class="radio-option"><input type="radio" name="reason" /> HIV Testing</label>
+        <label class="radio-option"><input type="radio" name="reason" /> Papsmears</label>
+        <label class="radio-option"><input type="radio" name="reason" /> STI treatment</label>
+        <label class="radio-option"><input type="radio" name="reason" /> TB Screening</label>
+        <label class="radio-option"><input type="radio" name="reason" /> Post-Natal</label>
+        <label class="radio-option"><input type="radio" name="reason" /> Vit A and Deworming</label>
+      </div>
+
+      <div class="field-label">Choose Date Available</div>
+      <div class="month-nav">
+        <span></span>
+        <span id="monthLabel">Apr</span>
+        <span>
+          <button id="prevMonth">&#8249;</button>
+          <button id="nextMonth">&#8250;</button>
+        </span>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+
+      <div class="field-label">Time Available</div>
+      <div class="time-grid">
+        <div class="time-slot">08:30AM</div>
+        <div class="time-slot selected">09:00AM</div>
+        <div class="time-slot">09:30AM</div>
+        <div class="time-slot">10:00AM</div>
+        <div class="time-slot">10:00AM</div>
+        <div class="time-slot">12:45AM</div>
+      </div>
+
+      <div class="field-label">Reason for the appointment</div>
+      <textarea class="booking-textarea" placeholder="Explain here"></textarea>
+
+      <button type="button" id="confirmBookingBtn" class="btn-primary" style="background:#1c1c1e;">Confirm Booking</button>
+      <button type="button" id="cancelBookingBtn" class="link-cancel">Cancel Booking</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="JAVASCRIPTT.js"></script>
+</body>
+</html>

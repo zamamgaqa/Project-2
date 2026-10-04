@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Doctors & Clinics</title>
+   
+   <link rel="html" href="SPLASH.html" />
+  <link rel="html" href="WELCOME.html" />
+  <link rel="html" href="HOME.html" />
+  <link rel="html" href="APPOINTMENT.html" />
+  <link rel="html" href="BOOKAPPOINTMENT.html" />
+  <link rel="html" href="CONFIRMAPPOINTMENT.html" />
+  <link rel="html" href="APPOINTMENTCONFI,ED.html" />
+  <link rel="html" href="NOTIFICATION.html" />
+  <link rel="html" href="PROFILEMENU.html" />
+  <link rel="html" href="SEARCHDOCTORS.html" />
+  <link rel="html" href="PROFILE.html" />
+  <link rel="stylesheet" href="STYLINNG.css" />
+  
+</head>
+<body>
+
+  <div class="phone-card app-shell" style="position:relative;">
+    <div class="header-art" style="height:70px;">
+      <div class="blob blob-1" style="width:150px;height:150px;top:-80px;left:-60px;"></div>
+    </div>
+
+    <div class="app-content" style="padding-top:0; margin-top:-40px;">
+      <div class="screen-header">
+        <button class="back-btn" onclick="window.location.href='home.html'">&#8592;</button>
+      </div>
+      <h1 class="title" style="text-align:left; color:#6C63FF; font-size:20px; margin-bottom:14px;">search doctors &amp; clinics</h1>
+
+      <div class="search-bar light">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1c1c1e" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input type="text" placeholder="Search doctors, clinics..." />
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1c1c1e" stroke-width="2"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"/><path d="M19 11a7 7 0 0 1-14 0"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+      </div>
+
+      <div class="chip-row">
+        <span class="chip">Mental health</span>
+        <span class="chip">General Doctor</span>
+        <span class="chip">Dentist near me</span>
+        <span class="chip">Open pharmacy</span>
+      </div>
+
+      <div class="locate-card">
+        <div class="locate-title">Find clinics open right now</div>
+        <div class="locate-row">
+          <div class="locate-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="locate-text">Based on your location</div>
+          <button class="btn-small">Search now</button>
+        </div>
+      </div>
+
+      <div class="section-label">Recent Searches</div>
+      <div class="recent-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Dentist - Mowbray
+      </div>
+      <div class="recent-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Districts 6 Clinic
+      </div>
+      <div class="recent-item" style="margin-bottom:18px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Blood Test Centers
+      </div>
+
+      <div class="section-label">Browse by category</div>
+      <div class="category-grid">
+        <div class="category-item">
+          <div class="category-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/></svg></div>
+          <div class="cat-label">Optic</div>
+        </div>
+        <div class="category-item">
+          <div class="category-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+          <div class="cat-label">Mental</div>
+        </div>
+        <div class="category-item">
+          <div class="category-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+          <div class="cat-label">cardo</div>
+        </div>
+      </div>
+
+      <div class="section-label">Nearby Clinics</div>
+      <div class="clinic-card">
+        <div class="clinic-photo"></div>
+        <div>
+          <div class="clinic-name">District 6 Clinic <span style="color:#8b8b93; font-weight:400;">1.2 KM</span></div>
+          <div class="clinic-meta">Open 08:00 - 16:00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <a href="home.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+        Home
+      </a>
+      <a href="appointments.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+        Appointments
+      </a>
+      <a href="profile-menu.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+        Menu
+      </a>
+    </div>
+  </div>
+
+  <script src="JAVASCRIPTT.js"></script>
+</body>
+</html>

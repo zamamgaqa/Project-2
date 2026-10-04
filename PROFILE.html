@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile</title>
+  
+  <link rel="html" href="SPLASH.html" />
+  <link rel="html" href="WELCOME.html" />
+  <link rel="html" href="HOME.html" />
+  <link rel="html" href="APPOINTMENT.html" />
+  <link rel="html" href="BOOKAPPOINTMENT.html" />
+  <link rel="html" href="CONFIRMAPPOINTMENT.html" />
+  <link rel="html" href="APPOINTMENTCONFI,ED.html" />
+  <link rel="html" href="NOTIFICATION.html" />
+  <link rel="html" href="PROFILEMENU.html" />
+  <link rel="html" href="SEARCHDOCTORS.html" />
+  <link rel="html" href="PROFILE.html" />
+  <link rel="stylesheet" href="STYLINNG.css" />
+  
+</head>
+<body>
+
+  <div class="phone-card app-shell">
+    <div class="app-content">
+      <div class="screen-header">
+        <button class="back-btn" onclick="window.location.href='profile-menu.html'">&#8592;</button>
+        <span class="screen-title">My Profile</span>
+      </div>
+
+      <div class="avatar-edit">
+        <div class="profile-photo-lg">FS</div>
+        <div class="camera-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+      </div>
+
+      <form id="editProfileForm">
+        <div class="card-label">Basic Details</div>
+
+        <label class="field-label">Full Name</label>
+        <input type="text" class="field-outline" value="Florence Smithith" />
+
+        <label class="field-label">Date of birth</label>
+        <input type="text" class="field-outline" value="12 May 1978" />
+
+        <label class="field-label">Gender</label>
+        <div class="toggle-row">
+          <button type="button" class="toggle-btn selected"><span class="dot"></span>Female</button>
+          <button type="button" class="toggle-btn"><span class="dot"></span>Male</button>
+        </div>
+
+        <div class="card-label">Contact Details</div>
+        <label class="field-label">Mobile Number</label>
+        <input type="tel" class="field-outline" placeholder="Enter mobile number" />
+
+        <button type="submit" class="btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="JAVASCRIPTT.js"></script>
+  <script>
+    document.getElementById('editProfileForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      showToast('Profile saved!');
+    });
+  </script>
+</body>
+</html>
